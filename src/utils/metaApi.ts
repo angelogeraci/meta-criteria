@@ -3,7 +3,7 @@ import stringSimilarity from 'string-similarity';
 import { MetaSuggestion } from '../types';
 
 /**
- * Obtient les suggestions d'intérêts depuis l'API Facebook Marketing
+ * Obtient les suggestions d'intérêts depuis l'API Facebook Marketing via notre API proxy
  * @param keyword Mot-clé à rechercher
  * @returns Promise avec les suggestions
  */
@@ -13,13 +13,10 @@ export const getMetaSuggestions = async (keyword: string): Promise<MetaSuggestio
   }
 
   try {
-    // Paramètres nécessaires pour l'API Meta
-    const apiUrl = 'https://graph.facebook.com/v18.0/search';
+    // Utiliser notre route API proxy au lieu d'appeler directement l'API Meta
+    const apiUrl = '/api/meta-suggestions';
     const params = {
       q: keyword,
-      type: 'adinterest',
-      limit: 10, // Récupère les 10 meilleures suggestions
-      access_token: process.env.META_ACCESS_TOKEN,
     };
 
     const response = await axios.get(apiUrl, { params });
